@@ -22,7 +22,8 @@ const getWeatherDataFromApi = async (cityName) =>{
       let url = baseURL + "q=" + cityName + "&appid=" + apiKey + "&units=" + units + "&lang=" + lang;
       try {
             const response = await axios(url);
-            const {name, sys, weather} = response.data;
+            console.log(response);
+            const {name, sys, weather, main} = response.data;
 
             cities.innerHTML = `
                               <li class="city">
@@ -30,7 +31,7 @@ const getWeatherDataFromApi = async (cityName) =>{
                                           <span>${name}</span>
                                           <sup>${sys.country}</sup>
                                     </h2>
-                                    <div class="city-temp">1<sup>°C</sup></div>
+                                    <div class="city-temp">${Math.round(main.temp)}<sup>${"°C"}</sup></div>
                                     <figure>
                                           <img class="city-icon" src="https://openweathermap.org/img/wn/${weather[0].icon}@2x.png">
                                           <figcaption>${weather[0].description}</figcaption>
